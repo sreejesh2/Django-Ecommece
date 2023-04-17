@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Token
+{% endblock title %}
+
+{% block style %}
+
+<style>
+    .section {
+      margin-left: 36%;
+    }
+    .f-login{
+      width: 50%;
+    }
+    .login{
+      font-weight: 600;
+    }
+   
+    .wrapper{
+      margin-left: 25%;
+      padding: 10px;
+      border: 3px solid blueviolet;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20vh;
+      width: 60%;
+  
+    }
+    .wrapper h2,a{
+      margin-left:20%;
+    }
+    .wrapper a{
+      width: 40px;
+      height: 50px;
+      background-color: blueviolet;
+      color: azure;
+      padding: 10px;
+      border-radius: 20%;
+      margin-left: 40%;
+    }
+  </style>
+{% endblock style %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4"></div>
+    <div class="col-4">
+        {% for msg in messages %}
+        {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+         <strong>{{msg}}</strong> 
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+       </div>
+        {% else %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+         <strong>{{msg}}</strong> 
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+       </div>
+        {% endif %}
+     {% endfor %}
+    </div>
+</div>
+
+
+
+  <div class="">
+
+ 
+    <div class="wrapper">
+     <div>
+        <h2>Verify your email address</h2>
+        <p>Please confirm that you want to use this as your Shopyfy account email address. Onece it's  done you will be able start buying!</p>
+       
+     </div>
+
+    </div>
+
+
+
+  </div>
+{% endblock content %}
