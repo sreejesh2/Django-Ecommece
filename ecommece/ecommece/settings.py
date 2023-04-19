@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-fp9m&)@(dh1-qlf2k-lw8b7yez==n5s^1x%ta9@_%u58vp#v-8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -39,17 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'social_django',
 
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    
 ]
 
-SITE_ID = 1
-SOCIALACCOUNT_LOGIN_ON_GET=True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommece.urls'
@@ -74,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -81,25 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommece.wsgi.application'
 
-AUTHENTICATION_BACKENDS = [
-    
-    'allauth.account.auth_backends.AuthenticationBackend'
-    ]
-
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -148,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"), 
+    os.path.join(BASE_DIR, "static/"),
 ]
 
 # Default primary key field type
@@ -159,7 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 # ...
-AUTH_USER_MODEL = 'accounts.CustomUser'  # Replace 'myapp' with the app name where your CustomUser model is defined
+# Replace 'myapp' with the app name where your CustomUser model is defined
+AUTH_USER_MODEL = 'accounts.CustomUser'
 # ...
 
 
@@ -169,3 +145,20 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'aswathis867@gmail.com'
 EMAIL_HOST_PASSWORD = 'tjasssqrshpfkusl'
 EMAIL_PORT = 587
+
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = "logout"
+LOGOUT_REDIRECT_URL = 'login'
+
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '770463948441-ceiuhnmfo1qii9tpq92dtv43upiilu7j.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'

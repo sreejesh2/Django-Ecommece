@@ -1,120 +1,137 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
+
 
 {% block title %}
-Register
+    Register
 {% endblock title %}
 
 {% block links %}
  <!-- Font Icon -->
- <link rel="stylesheet" href="{%static 'signin/fonts/material-icon/css/material-design-iconic-font.min.css'%}">
+    <link rel="stylesheet" href="{%static 'signin/fonts/material-icon/css/material-design-iconic-font.min.css'%}">
 
  <!-- Main css -->
- <link rel="stylesheet" href="{%static 'signin/css/style.css'%}">
+    <link rel="stylesheet" href="{%static 'signin/css/style.css'%}">
 {% endblock links %}
 
 {% block style %}
-<style>
+    <style>
 
-  .f-login{
-    width: 50%;
-  }
-  .login{
-    font-weight: 600;
-  }
+        .f-login{
+            width: 50%;
+        }
+        .login{
+            font-weight: 600;
+        }
 
-  .section{
-    margin-top: -90px;
-  }
-</style>
+        .section{
+            margin-top: -90px;
+        }
+        .social-login{
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+        }
+       .g-logo, .social-label{
+        margin-top: 20px;
+       }
+       .line{
+        width: 150px;
+        height: 1px;
+        background-color: rgb(228, 221, 221);
+        margin-top: -7px;
+        
+       }
+    </style>
 {% endblock style %}
 
 {% block content %}
-<div class="row">
-  <div class="col-4"></div>
-  <div class="col-4"></div>
-  <div class="col-4">
-      {% for msg in messages %}
-      {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-       <strong>{{msg}}</strong> 
-       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-     </div>
-      {% else %}
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-       <strong>{{msg}}</strong> 
-       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-     </div>
-      {% endif %}
-   {% endfor %}
-  </div>
-</div>
-<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div class="col-4">
+            {% for msg in messages %}
+                {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{msg}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{msg}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
 
 
-<div class="col-4">{% if form.errors  %}
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>{{form.errors}}</strong> 
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endif %}</div>
+        <div class="col-4">{% if form.errors  %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{form.errors}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}</div>
 
-</div>
+    </div>
 
 
-<div class="section">
+    <div class="section">
        <!-- Sing in  Form -->
-       <section class="sign-in">
-        <div class="container">
-            <div class="signin-content">
-                <div class="signin-image">
-                    <figure><img src="{%static 'signin/images/signin-image.jpg'%}" alt="sing up image"></figure>
-                    <a href="#" class="signup-image-link">Create an account</a>
-                </div>
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{%static 'signin/images/signin-image.jpg'%}" alt="sing up image"></figure>
+                        <a href="{%url 'register'%}" class="signup-image-link">Create an account</a>
+                    </div>
 
-                <div class="signin-form">
-                    <h2 class="form-title">Sign in</h2>
-                    <form method="POST" class="register-form" id="login-form">
-                      {% csrf_token %}
-                        <div class="form-group">
-                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="your_name" placeholder="Enter Email "/>
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="email" id="your_name" placeholder="Enter Email "/>
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="your_pass" placeholder="Enter Password"/>
+                            </div>
+                          
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                        </form>
+                        <div class="social-login ">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <div class="line" style="margin-right: 10px;"></div>
+                                <span class=""><h5>Or</h5></span>
+                                <div class="line" style="margin-left: 10px;"></div>
+                            </div>
+                            <div class="g-logo">
+                            <a href="{%url 'social:begin' 'google-oauth2'%}"><img class="display-flex-center zmdi" src="{%static 'images/google.png'%}" style="height: 30px; width: 30px;" alt=""></a>
+
                         </div>
-                        <div class="form-group">
-                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="your_pass" placeholder="Enter Password"/>
+                           
                         </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                        </div>
-                        <div class="form-group form-button">
-                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
-                        </div>
-                    </form>
-                    <div class="social-login">
-                        <span class="social-label">Or login with</span>
-                        <ul class="socials">
-                 
-                            <li><a href="{% provider_login_url 'google'%}?next=/"><img class="display-flex-center zmdi" src="{%static 'images/google.png'%}" style="height: 30px; width: 30px;" alt=""></a></li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-      
 
-  </div>
+    </div>
 
 
 
-</div>
+    </div>
 {% endblock content %}
 
 {% block script %}
-<script src="{%static 'signin/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{%static 'signin/vendor/jquery/jquery.min.js'%}"></script>
     <script src="{%static 'signin/js/main.js'%}"></script>
 {% endblock script %}

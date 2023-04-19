@@ -14,7 +14,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name')
+        fields = ('email','first_name', 'last_name')
         widgets={
         'email':forms.EmailInput(attrs={"class":"form-control"}),
     }
@@ -36,6 +36,6 @@ class UserCreationForm(forms.ModelForm):
 
 
 class SignInForm(forms.Form):
-    username=forms.EmailField(label='Email')
+    email=forms.EmailField(label='Email')
     password=forms.CharField(  label='Password',
         widget=forms.PasswordInput)
