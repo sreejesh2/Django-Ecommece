@@ -1,0 +1,482 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}product page{% endblock title %}
+{% block content %}
+
+
+
+
+<div class="section">
+    <div class="container">
+        <div class="col lg-6 md-12 md-margin-bottom-double">
+            <div data-animation="slide" data-duration="500" data-infinite="1" id="mainSlider"
+                data-w-id="6d2d27d9-5143-b86a-9896-a0666c21f236" class="c-product-image w-slider">
+
+                <div class="w-slider-mask">
+                    {% for p in product.get_img %}
+                    <div class="w-slide"><a href="#" class="w-inline-block w-lightbox"><img src="{{p.image.url}}"
+                                style="width: 100%; height: 50vh;" alt="">
+                            <script type="application/json" class="w-json">{
+  "items": [
+    {
+      "type": "image",
+      "_id": "5d9c34671d21e3d5d828e811",
+      "fileName": "5d9c34671d21e3d5d828e811_692.jpg",
+      "origFileName": "692.jpg",
+      "width": 1000,
+      "height": 1000,
+      "fileSize": 116713,
+      "url": "{{p.image.url}}"
+    }
+  ],
+  "group": "albert-armchair"
+}</script>
+                        </a></div>
+                    {%endfor%}
+
+                </div>
+
+                <div style="opacity:0" class="c-product-image__arrow is-left w-slider-arrow-left">
+                    <div class="w-icon-slider-left"></div>
+                </div>
+                <div style="opacity:0" class="c-product-image__arrow is-right w-slider-arrow-right">
+                    <div class="w-icon-slider-right"></div>
+                </div>
+                <div class="hidden w-slider-nav w-round"></div>
+            </div>
+            <div data-animation="slide" data-duration="500" data-infinite="1" data-thumbs-for="#mainSlider"
+                class="c-product-thumbnail w-slider">
+                <div class="c-product-thumbnail__mask w-slider-mask">
+                    {% for p in product.get_img %}
+                    <div class="c-product-thumbnail__slide w-slide"><img src="{{p.image.url}}"
+                            style="width: 100%; height: 15vh;" class="c-product-thumbnail__image"></div>
+
+                    {%endfor%}
+                </div>
+                <div class="c-product-thumbnail__arrow is-left w-slider-arrow-left">
+                    <div class="w-icon-slider-left"></div>
+                </div>
+                <div class="c-product-thumbnail__arrow is-right w-slider-arrow-right">
+                    <div class="w-icon-slider-right"></div>
+                </div>
+                <div class="c-product-thumbnail__nav w-slider-nav w-slider-nav-invert w-round"></div>
+            </div>
+        </div>
+        <div class="col lg-6 md-12">
+            <div class="text-xsmall margin-bottom-small"><a
+                    href="{%url 'products' product.category.id%}">{{product.category.category_name}}</a> /
+                {{product.name}}</div>
+            <h1 class="size-h2">{{product.name}}</h1>
+            <div class="flexh-align-center margin-bottom">
+                <div class="c-product__rating margin-right">
+                    <div class="fa is-filled"></div>
+                    <div class="fa is-filled"></div>
+                    <div class="fa is-filled"></div>
+                    <div class="fa is-filled"></div>
+                    <div class="fa is-blank"></div>
+                </div><a href="#" class="text-small low-text-contrast">View Reviews</a>
+            </div>
+            <div id="product-price" class="margin-bottom size-h3">₹ {{product.get_price.sale_price}}</div>
+            <p>{{product.description}} </p>
+            <div class="w-form">
+                <form id="email-form" name="email-form" data-name="Email Form">
+                    <div class="flexh-align-center">
+                        <input type="submit" value="Add to cart" data-wait="Please wait..."
+                            class="button-primary is-small w-button">
+                    </div>
+                    <div class="w-layout-grid c-grid2x3 margin-bottom">
+                        {%if product.get_colors%}
+                        <div class="weight-is-medium">Colors :</div>
+                        {%endif%}
+                        {%if product.get_size%}
+                        <div class="weight-is-medium">Size :</div>
+                        {%endif%}
+
+                        <div></div>
+                        {%if product.get_colors%}
+                        <div class="flexh-align-center">
+                            {%for color in product.get_colors%}
+                            <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;" name="clr"
+                                type="radio" value="{{color.color.color}}">
+                            <label for="">{{color.color.color}}</label>
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+
+                        {%if product.get_size%}
+                        <div class="flexh-align-center">
+                            {%for size in product.get_size%}
+                            <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;" name="size"
+                                type="radio" value="{{size.get_product_size_price}}">
+                            <label for="">{{size.size.size}}</label>
+                            {%endfor%}
+
+                        </div>
+                        {%endif%}
+                    </div>
+                </form>
+                <div class="w-form-done">
+                    <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                    <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+            </div>
+
+            <div class="c-extrainfo">
+                <a href="#" class="c-extrainfo__text w-inline-block">
+                    <div class="fa margin-right-small"></div>
+                    <div class="text-xsmall">Store availability</div>
+                </a>
+                <a href="#" class="c-extrainfo__text w-inline-block">
+                    <div class="fa margin-right-small"></div>
+                    <div class="text-xsmall">Delivery and return</div>
+                </a>
+                <a href="#" class="c-extrainfo__text w-inline-block">
+                    <div class="fa margin-right-small"></div>
+                    <div class="text-xsmall">Ask a question</div>
+                </a>
+            </div>
+            <div class="flexh-space-between xs-is-wrapping">
+                <a href="#" class="c-wishlist xs-margin-bottom w-inline-block">
+                    <div class="c-wishlist__icon"></div>
+                    <div>Add to wishlist</div>
+                </a>
+                <div class="flexh-align-center">
+                    <div class="margin-right-small">Share</div>
+                    <div>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://demo.detheme.com/vastart-landing&amp;t=Detheme the awesome theme"
+                            target="_blank" class="c-share-btn w-inline-block">
+                            <div class="fa-brand is-body-text-color"></div>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?source=https://demo.detheme.com/vastart-landing&amp;text=Everything You Need To Create A Digital Company Website:https://demo.detheme.com/vastart-landing"
+                            class="c-share-btn w-inline-block">
+                            <div class="fa-brand is-body-text-color"></div>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?url=https://demo.detheme.com/vastart-landing&amp;title=Everything You Need To Create A Digital Company Website"
+                            class="c-share-btn w-inline-block">
+                            <div class="fa-brand is-body-text-color"></div>
+                        </a>
+                        <a href="http://pinterest.com/pin/create/button/?url=https://demo.detheme.com/vastart-landing&amp;media=https://demo.detheme.com/vastart-landing/wp-content/uploads/sites/84/2019/08/demo-1.jpg&amp;description=Everything You Need To Create A Digital Company Website"
+                            class="c-share-btn w-inline-block">
+                            <div class="fa-brand is-body-text-color"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col lg-12 no-margin-bottom">
+            <div data-duration-in="300" data-duration-out="100" class="c-product-tabs w-tabs">
+                <div class="c-product-tabs_menu w-tab-menu">
+                    <a data-w-tab="Tab 1" class="c-product-tabs__link w-inline-block w-tab-link w--current">
+                        <div>Description</div>
+                    </a>
+                    <a data-w-tab="Tab 2" class="c-product-tabs__link w-inline-block w-tab-link">
+                        <div>Additional Information</div>
+                    </a>
+                    <a data-w-tab="Tab 3" class="c-product-tabs__link w-inline-block w-tab-link">
+                        <div>Reviews (2)</div>
+                    </a>
+                </div>
+                <div class="c-product-tabs__content w-tab-content">
+                    <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active">
+                        <div class="w-richtext">
+                            <p>Curabitur blandit tempus porttitor. Vivamus sagittis lacus vel augue laoreet rutrum
+                                faucibus dolor auctor. Integer posuere erat a ante venenatis dapibus posuere velit
+                                aliquet. Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante
+                                venenatis dapibus posuere velit aliquet.</p>
+                            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                                quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+                                Vestibulum id ligula porta felis euismod semper.</p>
+                        </div>
+                    </div>
+                    <div data-w-tab="Tab 2" class="w-tab-pane">
+                        <div class="w-layout-grid c-grid-info">
+                            <div class="is-heading-color weight-is-medium">Weight</div>
+                            <div class="is-heading-color weight-is-medium">Dimension</div>
+                            <div class="is-heading-color weight-is-medium">Color</div>
+                            <div class="is-heading-color weight-is-medium">Fabric</div>
+                            <div>45 Kilograms</div>
+                            <div>80x100&quot;</div>
+                            <div>Tosca blue, Brown, White</div>
+                            <div>Leather, Marconi, Suede</div>
+                        </div>
+                    </div>
+                    <div data-w-tab="Tab 3" class="w-tab-pane">
+                        <div class="c-comment">
+                            <div class="c-author"><img src="https://via.placeholder.com/1000x600.png?text=IMAGE"
+                                    width="72" alt="" class="is-rounded margin-right">
+                                <div>
+                                    <div class="flexh-align-center margin-bottom-xsmall xs-is-wrapping">
+                                        <div class="c-author__name">Walter Cook</div>
+                                        <div class="c-badge">Verified Buyer</div>
+                                    </div>
+                                    <div class="text-xsmall low-text-contrast margin-bottom-xsmall">June 07, 2020</div>
+                                    <div class="c-product__rating">
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-blank"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                                elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                                commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem
+                                imperdiet. Nunc ut sem vitae risus tristique posuere. Maecenas faucibus mollis
+                                interdum.Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean
+                                lacinia bibendum </p>
+                        </div>
+                        <div class="c-comment">
+                            <div class="c-author"><img src="https://via.placeholder.com/1000x600.png?text=IMAGE"
+                                    width="72" alt="" class="is-rounded margin-right">
+                                <div>
+                                    <div class="flexh-align-center margin-bottom-xsmall xs-is-wrapping">
+                                        <div class="c-author__name">Sacha Kariono</div>
+                                        <div class="c-badge">Verified Buyer</div>
+                                    </div>
+                                    <div class="text-xsmall low-text-contrast margin-bottom-xsmall">June 27, 2020</div>
+                                    <div class="c-product__rating">
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-filled"></div>
+                                        <div class="fa is-blank"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+                                elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+                                commodo diam libero vitae erat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section border-top-1px">
+    <div class="container">
+        <div class="col lg-12">
+            <h3>Related products</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col lg-12">
+            <div class="w-layout-grid c-grid1x4">
+                <div class="c-product-thumb">
+                    <div class="c-product-thumb__top"><a href="#" class="margin-bottom-small w-inline-block"><img
+                                src="https://via.placeholder.com/1000x600.png?text=IMAGE" alt="">
+                            <div class="c-product-thumb__discount">
+                                <div>45%</div>
+                            </div>
+                        </a>
+                        <div class="text-xsmall weight-is-medium margin-bottom-small"><a href="#">Chair</a>, <a
+                                href="#">Room set</a></div>
+                        <div class="c-product__rating">
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-blank"></div>
+                        </div>
+                        <a href="#" class="w-inline-block">
+                            <div class="c-product__title">Albert Armchair, Nubuck Broken White</div>
+                        </a>
+                    </div>
+                    <div class="c-product__price-wrapper">
+                        <div class="c-product__price margin-right-small">$120</div>
+                        <div class="c-product__price is-slashed">$120</div>
+                    </div>
+                    <div class="c-product__quickview">
+                        <a href="#" class="button-primary is-small w-inline-block">
+                            <div class="button-primary-text"><span class="fa-regular is-16px"></span>  Quick view</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="c-product-thumb">
+                    <div class="c-product-thumb__top"><a href="#" class="margin-bottom-small w-inline-block"><img
+                                src="https://via.placeholder.com/1000x600.png?text=IMAGE" alt="">
+                            <div class="c-product-thumb__discount">
+                                <div>5%</div>
+                            </div>
+                        </a>
+                        <div class="text-xsmall weight-is-medium margin-bottom-small"><a href="#">Chair</a>, <a
+                                href="#">Room set</a></div>
+                        <div class="c-product__rating">
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-blank"></div>
+                        </div>
+                        <a href="#" class="w-inline-block">
+                            <div class="c-product__title">Albert Armchair, Nubuck Broken White</div>
+                        </a>
+                    </div>
+                    <div class="c-product__price-wrapper">
+                        <div class="c-product__price margin-right-small">$120</div>
+                        <div class="c-product__price is-slashed">$120</div>
+                    </div>
+                    <div class="c-product__quickview">
+                        <a href="#" class="button-primary is-small w-inline-block">
+                            <div class="button-primary-text"><span class="fa-regular is-16px"></span>  Quick view</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="c-product-thumb">
+                    <div class="c-product-thumb__top"><a href="#" class="margin-bottom-small w-inline-block"><img
+                                src="https://via.placeholder.com/1000x600.png?text=IMAGE" alt="">
+                            <div class="c-product-thumb__discount">
+                                <div>8%</div>
+                            </div>
+                        </a>
+                        <div class="text-xsmall weight-is-medium margin-bottom-small"><a href="#">Chair</a>, <a
+                                href="#">Room set</a></div>
+                        <div class="c-product__rating">
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-blank"></div>
+                        </div>
+                        <a href="#" class="w-inline-block">
+                            <div class="c-product__title">Albert Armchair, Nubuck Broken White</div>
+                        </a>
+                    </div>
+                    <div class="c-product__price-wrapper">
+                        <div class="c-product__price margin-right-small">$120</div>
+                        <div class="c-product__price is-slashed">$120</div>
+                    </div>
+                    <div class="c-product__quickview">
+                        <a href="#" class="button-primary is-small w-inline-block">
+                            <div class="button-primary-text"><span class="fa-regular is-16px"></span>  Quick view</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="c-product-thumb">
+                    <div class="c-product-thumb__top"><a href="#" class="margin-bottom-small w-inline-block"><img
+                                src="https://via.placeholder.com/1000x600.png?text=IMAGE" alt="">
+                            <div class="c-product-thumb__discount">
+                                <div>98%</div>
+                            </div>
+                        </a>
+                        <div class="text-xsmall weight-is-medium margin-bottom-small"><a href="#">Chair</a>, <a
+                                href="#">Room set</a></div>
+                        <div class="c-product__rating">
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-filled"></div>
+                            <div class="fa is-blank"></div>
+                        </div>
+                        <a href="#" class="w-inline-block">
+                            <div class="c-product__title">Albert Armchair, Nubuck Broken White</div>
+                        </a>
+                    </div>
+                    <div class="c-product__price-wrapper">
+                        <div class="c-product__price margin-right-small">$120</div>
+                        <div class="c-product__price is-slashed">$120</div>
+                    </div>
+                    <div class="c-product__quickview">
+                        <a href="#" class="button-primary is-small w-inline-block">
+                            <div class="button-primary-text"><span class="fa-regular is-16px"></span>  Quick view</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section padding-top-bottom-small border-top-light">
+    <div class="container">
+        <div class="col lg-4 md-12 flexh-align-top no-margin-bottom-lg">
+            <div class="fa is-24px is-brand-color margin-right"></div>
+            <div>
+                <div class="size-h4 margin-bottom-small">Easy return</div>
+                <div class="low-text-contrast text-small">30 day return window without any question asked, just peace of
+                    mind.</div>
+            </div>
+        </div>
+        <div class="col lg-4 md-12 flexh-align-top no-margin-bottom-lg">
+            <div class="fa is-24px is-brand-color margin-right"></div>
+            <div>
+                <div class="size-h4 margin-bottom-small">Global shipping</div>
+                <div class="low-text-contrast text-small">We accept order around the globe and deliver to 120 countries.
+                </div>
+            </div>
+        </div>
+        <div class="col lg-4 md-12 flexh-align-top no-margin-bottom">
+            <div class="fa is-24px is-brand-color margin-right"></div>
+            <div>
+                <div class="size-h4 margin-bottom-small">Secure payment</div>
+                <div class="low-text-contrast text-small">Encryption of standard SSL with 128-bit symmetric key</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="{%static 'js/rylee-template.js'%}" type="text/javascript"></script>
+<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+<script>
+    $(document).ready(function () {
+        //set default value of '1'
+        $(".quantity-input").val("1");
+        incrementVar = 0;
+        $('.quantity-button.is-plus').click(function () {
+            var $this = $(this),
+                $input = $this.prev('input'),
+                $parent = $input.closest('div'),
+                newValue = parseInt($input.val()) + 1;
+            $parent.find('.inc').addClass('a' + newValue);
+            $input.val(newValue);
+            incrementVar += newValue;
+        });
+        $('.quantity-button.is-minus').click(function () {
+            var $this = $(this),
+                $input = $this.next('input'),
+                $parent = $input.closest('div'),
+                newValue = parseInt($input.val()) - 1;
+            console.log($parent);
+            $parent.find('.inc').addClass('a' + newValue);
+            $input.val(newValue);
+            incrementVar += newValue;
+        });
+    });
+</script>
+<script>
+    Webflow.push(function () {
+        // When a thumbnail is clicked, update target slider
+        $('[data-thumbs-for]').on('click', '.w-slide', function () {
+            // Find target slider, if not found exit
+            var target = $($(this).parents('.w-slider').attr('data-thumbs-for'));
+            if (target.length == 0) return;
+            // Update target slider by triggering a "tap" event on the targetNav corresponding slide button
+            target.find('.w-slider-nav').children().eq($(this).index()).trigger('tap');
+        }); // End click function
+    }); // End ready function
+</script>
+<script>
+    const sizeRadios = document.querySelectorAll('input[name="size"]');
+    console.log(sizeRadios);
+    const priceEl = document.querySelector('#product-price');
+
+    sizeRadios.forEach(radio => {
+        radio.addEventListener('click', () => {
+            priceEl.textContent = radio.value;
+        });
+    });
+
+
+</script>
+
+
+
+{% include "includes/footer.html" %}
+{% endblock content %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Category{% endblock title %}
+
+{% block content %}
+
+<div class="section">
+  <div class="container">
+    
+      <div class="col lg-12">
+        <h2 class="text-align-center margin-bottom">Popular Category</h2>
+          <div class="w-layout-grid c-products5x3">
+
+              {%for c in category%}
+              <div class="c-product-thumb">
+                <div class="c-product-thumb__top"><a href="{%url 'products' c.id%}" class="margin-bottom-small w-inline-block">
+                {%if c.image%}
+                <img src="{{c.image.url}}" style="height: 20vh; object-fit: cover;" width="140" alt=""></a>
+                {%else%}
+                <img src="https://via.placeholder.com/1000x600.png?text=IMAGE" alt=""></a>
+                {%endif%}
+
+                    <div>
+                        <div class="size-h4 margin-bottom">{{c.category_name}}</div>
+                        <a href="{%url 'products' c.id%}" class="cta-link xs-margin-bottom"><span class="margin-right">View
+                                Products</span><span class="fa c-cta1_arrow-hovered"></span> <span
+                                class="fa c-cta1__arrow-normal"></span></a>
+                    </div>
+                </div>
+            </div>
+              {%endfor%}
+          </div>
+      </div>
+  </div>
+
+
+
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="{%static 'js/rylee-template.js'%}" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  {% comment %} <script>
+      $(document).ready(function () {
+          //set default value of '1'
+          $(".quantity-input").val("1");
+          incrementVar = 0;
+          $('.quantity-button.is-plus').click(function () {
+              var $this = $(this),
+                  $input = $this.prev('input'),
+                  $parent = $input.closest('div'),
+                  newValue = parseInt($input.val()) + 1;
+              $parent.find('.inc').addClass('a' + newValue);
+              $input.val(newValue);
+              incrementVar += newValue;
+          });
+          $('.quantity-button.is-minus').click(function () {
+              var $this = $(this),
+                  $input = $this.next('input'),
+                  $parent = $input.closest('div'),
+                  newValue = parseInt($input.val()) - 1;
+              console.log($parent);
+              $parent.find('.inc').addClass('a' + newValue);
+              $input.val(newValue);
+              incrementVar += newValue;
+          });
+      });
+  </script>
+  <script>
+      Webflow.push(function () {
+          // When a thumbnail is clicked, update target slider
+          $('[data-thumbs-for]').on('click', '.w-slide', function () {
+              // Find target slider, if not found exit
+              var target = $($(this).parents('.w-slider').attr('data-thumbs-for'));
+              if (target.length == 0) return;
+              // Update target slider by triggering a "tap" event on the targetNav corresponding slide button
+              target.find('.w-slider-nav').children().eq($(this).index()).trigger('tap');
+          }); // End click function
+      }); // End ready function
+  </script> {% endcomment %}
+
+
+
+{% include "includes/footer.html" %}
+{% endblock content %}
