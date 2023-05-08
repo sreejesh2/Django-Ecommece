@@ -88,16 +88,6 @@ from django.contrib.auth.models import User
 #     is_cancelled=models.BooleanField(default=False)
 
 
-# class Cart(models.Model):
-#     user=models.ForeignKey(User,on_delete=models.CASCADE)
-#     product=models.ForeignKey(Product,on_delete=models.CASCADE)
-#     product_size=models.ForeignKey(ProductSize,on_delete=models.DO_NOTHING)
-#     product_gender=models.ForeignKey(ProductGender,on_delete=models.DO_NOTHING)
-#     product_color=models.ForeignKey(ProductColor,models.DO_NOTHING)
-#     is_active=models.BooleanField(default=True)
-#     created_date=models.DateTimeField(auto_now_add=True)
-#     created_by=models.ForeignKey(User,on_delete=models.DO_NOTHING)
-#     is_cancelled=models.BooleanField(default=False)
 
 
 

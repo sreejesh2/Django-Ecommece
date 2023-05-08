@@ -61,15 +61,13 @@
         <div class="col lg-3 md-4 xs-12">
             <div class="c-sidebar-widget">
                 <div class="w-form">
-                    <form id="email-form-2" name="email-form-2" data-name="Email Form 2"><input type="text"
-                            class="form-input-text bg-icon w-input" maxlength="256" name="Search" data-name="Search"
-                            placeholder="Search product" id="Search"></form>
-                    <div class="w-form-done">
-                        <div>Thank you! Your submission has been received!</div>
-                    </div>
-                    <div class="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
-                    </div>
+                    <form  method="POST" >
+                         {%csrf_token%}
+                        <input type="text" class="form-input-text bg-icon w-input" maxlength="256" name="Search_prodect"
+                             placeholder="Search product" id="Search">
+                            <button type="submit">submit</button>
+                    </form>
+                    
                 </div>
             </div>
             <div class="c-sidebar-widget">

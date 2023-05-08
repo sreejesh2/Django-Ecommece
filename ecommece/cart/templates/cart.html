@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}cart{% endblock title %}
+{% block content %}
+<div class="section is-dark">
+    <div class="container">
+      <div class="col block-centered text-align-center lg-7">
+        <h1 class="on-dark">Your shopping cart</h1>
+        <div class="padding-left padding-right margin-bottom low-text-contrast on-dark">Missed something? <a href="#" class="on-dark">Continue shopping</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="col lg-7 md-12">
+        {%for cart_item in cart_products%}
+         
+
+        <div class="c-cart__item in-cart-page">
+          <div class="flexh-align-center xs-margin-bottom">
+            <a href="#" class="c-cart__remove-btn in-cart-page w-inline-block">
+              <div class="iconfont"><em class="iconfont__no-italize"></em></div>
+            </a>
+            {% if cart_item.product.get_product_image %}
+            
+            <img src="{{cart_item.product.get_product_image.image.url}}"  width="100" style="height: 10vh; object-fit: cover;"  alt="" class="c-cart__thumbnail in-cart-page">
+
+            {% endif %}
+            <div class="c-cart__title-price">
+              <div class="is-heading-color weight-is-medium">{{cart_item.product.name}}</div>
+              <div class="low-text-contrast margin-left">$120</div>
+            </div>
+          </div>
+          <div class="flexh-space-between flexh-align-center is-grow xs-is-wrapping">
+            <div class="no-margin-bottom margin-left margin-right xs-no-margin-left w-form">
+              <form id="email-form" name="email-form" data-name="Email Form">
+                <div class="flexh-align-center"><a href="#" class="quantity-button is-minus">–</a><input type="text" maxlength="256" name="field" data-name="Field" required="" class="quantity-input w-input"><a href="#" class="quantity-button is-plus">+</a></div>
+              </form>
+              <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+              </div>
+              <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+              </div>
+            </div>
+            <div class="weight-is-medium is-heading-color">$120</div>
+          </div>
+        </div>
+        
+
+        {%endfor%}
+  
+        
+        <div class="margin-bottom max-width-500px lg-margin-left w-form">
+          <form id="email-form" name="email-form" data-name="Email Form" class="flexh-align-center xs-is-wrapping"><input type="email" class="form-input-text lg-margin-right lg-md-sm-no-margin-bottom bg-icon-ticket w-input" maxlength="256" name="Coupon" data-name="Coupon" placeholder="Coupon code" id="Coupon" required=""><input type="submit" value="apply coupon" data-wait="Please wait..." class="button-primary is-small min-width-170px w-button"></form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form.</div>
+          </div>
+        </div>
+      </div>
+      <div class="col lg-5 md-12">
+        <div class="c-cart-totals">
+          <div class="size-h3 margin-bottom">Cart totals</div>
+          <div class="c-cart__section in-cart-page">
+            <div class="is-heading-color weight-is-medium">Subtotal : </div>
+            <div>$240</div>
+          </div>
+          <div class="c-cart__section in-cart-page xs-is-wrapping">
+            <div class="is-heading-color weight-is-medium xs-margin-bottom">Shipping : </div>
+            <div class="basis-200px">
+              <div class="w-form">
+                <form id="email-form-3" name="email-form-3" data-name="Email Form 3"><label checked="" class="w-radio"><input type="radio" data-name="Shipping" id="Flat rate" name="Shipping" value="Flat rate" class="w-form-formradioinput w-radio-input"><span for="Flat rate" class="w-form-label">Flat rate</span></label><label class="w-radio"><input type="radio" data-name="Shipping" id="Flat rate" name="Shipping" value="Flat rate" class="w-form-formradioinput w-radio-input"><span for="Flat rate-2" class="w-form-label">Local pickup</span></label></form>
+                <div class="w-form-done">
+                  <div>Thank you! Your submission has been received!</div>
+                </div>
+                <div class="w-form-fail">
+                  <div>Oops! Something went wrong while submitting the form.</div>
+                </div>
+              </div>
+              <div class="margin-bottom">Shipping to <strong>Indonesia</strong></div><a href="#">Change adresss</a></div>
+          </div>
+          <div class="c-cart__section in-cart-page">
+            <div class="is-heading-color weight-is-medium">Tax (estimated for Indonesia)</div>
+            <div>$0</div>
+          </div>
+          <div class="c-cart__section in-cart-page no-border-bottom">
+            <div class="is-heading-color weight-is-medium">Total</div>
+            <div>$240</div>
+          </div>
+          <a href="#" class="button-primary w100 w-inline-block">
+            <div class="button-primary-text flexh-justify-center">proceed to Checkout</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section padding-top-bottom-small border-top-light">
+    <div class="container">
+      <div class="col lg-4 md-12 flexh-align-top no-margin-bottom-lg">
+        <div class="fa is-24px is-brand-color margin-right"></div>
+        <div>
+          <div class="size-h4 margin-bottom-small">Easy return</div>
+          <div class="low-text-contrast text-small">30 day return window without any question asked, just peace of mind.</div>
+        </div>
+      </div>
+      <div class="col lg-4 md-12 flexh-align-top no-margin-bottom-lg">
+        <div class="fa is-24px is-brand-color margin-right"></div>
+        <div>
+          <div class="size-h4 margin-bottom-small">Global shipping</div>
+          <div class="low-text-contrast text-small">We accept order around the globe and deliver to 120 countries.</div>
+        </div>
+      </div>
+      <div class="col lg-4 md-12 flexh-align-top no-margin-bottom">
+        <div class="fa is-24px is-brand-color margin-right"></div>
+        <div>
+          <div class="size-h4 margin-bottom-small">Secure payment</div>
+          <div class="low-text-contrast text-small">Encryption of standard SSL with 128-bit symmetric key</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="js/rylee-template.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <script>
+	$(document).ready(function(){
+		//set default value of '1'
+      	$(".quantity-input").val("1");
+		incrementVar = 0;
+		$('.quantity-button.is-plus').click(function(){
+		    var $this = $(this),
+		        $input = $this.prev('input'),
+		        $parent = $input.closest('div'),
+		        newValue = parseInt($input.val())+1;
+		    $parent.find('.inc').addClass('a'+newValue);
+		    $input.val(newValue);
+		    incrementVar += newValue;
+		});
+		$('.quantity-button.is-minus').click(function(){
+		    var $this = $(this),
+		        $input = $this.next('input'),
+		        $parent = $input.closest('div'),
+		        newValue = parseInt($input.val())-1;
+		    console.log($parent);
+		    $parent.find('.inc').addClass('a'+newValue);
+		    $input.val(newValue);
+		    incrementVar += newValue;
+		});	  
+	 });
+</script>
+
+{% include "includes/footer.html" %}
+{% endblock content %}

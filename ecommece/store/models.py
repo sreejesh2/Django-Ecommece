@@ -51,21 +51,6 @@ class Product(models.Model):
     
 
 
-class Gender(models.Model):
-    gender=models.CharField(max_length=100)
-    created_date=models.DateTimeField(auto_now_add=True)
-    is_cancelled=models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.gender
-
-class ProductGender(models.Model):
-    Product=models.ForeignKey(Product,on_delete=models.DO_NOTHING)
-    gender=models.ManyToManyField(Gender)
-    created_date=models.DateTimeField(auto_now_add=True)
-    is_canselled=models.BooleanField(default=False)
-
-
 
 class ProductPrice(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE)    
@@ -103,7 +88,7 @@ class ProductSize(models.Model):
     created_by=models.ForeignKey(CustomUser,models.DO_NOTHING,related_name='product_size_created_user')
     is_cancelled=models.BooleanField(default=False)
     def __str__(self):
-        return self.size.size
+        return f"{self.product.name} - {self.size}"
     
     @property
     def get_product_size_price(self):
@@ -117,6 +102,8 @@ class ProductSizePrice(models.Model):
     sale_price=models.PositiveIntegerField()
     created_by=models.ForeignKey(CustomUser,models.DO_NOTHING,related_name='product_size_price_created_user')
     is_cancelled=models.BooleanField(default=False)
+    def __str__(self):
+        return f"{self.product_size.product.name} - {self.product_size.size.size}-{self.sale_price}"
     
 
 class Color(models.Model):
@@ -138,6 +125,9 @@ class ProductColor(models.Model):
     created_date=models.DateTimeField(auto_now_add=True)
     created_by=models.ForeignKey(CustomUser,on_delete=models.DO_NOTHING,related_name='product_color_created_user')
     is_cancelled=models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.product.name} - {self.color.color}"
 
 class ProductImage(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)

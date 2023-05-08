@@ -77,52 +77,52 @@
                     <div class="fa is-blank"></div>
                 </div><a href="#" class="text-small low-text-contrast">View Reviews</a>
             </div>
-            <div id="product-price" class="margin-bottom size-h3">₹ {{product.get_price.sale_price}}</div>
-            <p>{{product.description}} </p>
-            <div class="w-form">
-                <form id="email-form" name="email-form" data-name="Email Form">
+
+            <form id="add-to-cart-form" method="POST" action="{%url 'add_to_cart' product.id%}">
+                {% csrf_token %}
+            <input type="hidden" name="price" id="p" value="{{product.get_price.sale_price}}">
+                <div id="product-price" class="margin-bottom size-h3" name="">₹ {{product.get_price.sale_price}}</div>
+            
+                <p>{{product.description}} </p>
+            
+                <div class="w-layout-grid c-grid2x3 margin-bottom">
+                    {% if product.get_colors %}
+                        <div class="weight-is-medium">Colors :</div>
+                    {% endif %}
+                    {% if product.get_size %}
+                        <div class="weight-is-medium">Size :</div>
+                    {% endif %}
+                    <div></div>
+            
+                    {% if product.get_colors %}
+                        <div class="flexh-align-center">
+                            {% for color in product.get_colors %}
+                                <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;"
+                                       name="product_color" type="radio" value="{{ color.color.color }}">
+                                <label for="">{{ color.color.color }}</label>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+            
+                    {% if product.get_size %}
+                        <div class="flexh-align-center">
+                            {% for size in product.get_size %}
+                                <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;"
+                                       name="product_size" type="radio" value="{{ size.get_product_size_price }}">
+                                <!-- <input name="product_size" type="radio" value="{{ size.size.size }}">        -->
+                                <label for="">{{ size.size.size }}</label>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="flexh-align-center">
                         <input type="submit" value="Add to cart" data-wait="Please wait..."
-                            class="button-primary is-small w-button">
+                               id="add-to-cart-button" class="button-primary is-small w-button">
                     </div>
-                    <div class="w-layout-grid c-grid2x3 margin-bottom">
-                        {%if product.get_colors%}
-                        <div class="weight-is-medium">Colors :</div>
-                        {%endif%}
-                        {%if product.get_size%}
-                        <div class="weight-is-medium">Size :</div>
-                        {%endif%}
-
-                        <div></div>
-                        {%if product.get_colors%}
-                        <div class="flexh-align-center">
-                            {%for color in product.get_colors%}
-                            <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;" name="clr"
-                                type="radio" value="{{color.color.color}}">
-                            <label for="">{{color.color.color}}</label>
-                            {%endfor%}
-                        </div>
-                        {%endif%}
-
-                        {%if product.get_size%}
-                        <div class="flexh-align-center">
-                            {%for size in product.get_size%}
-                            <input style="margin-right: 7px; margin-top: -2px; margin-left: 7px;" name="size"
-                                type="radio" value="{{size.get_product_size_price}}">
-                            <label for="">{{size.size.size}}</label>
-                            {%endfor%}
-
-                        </div>
-                        {%endif%}
-                    </div>
-                </form>
-                <div class="w-form-done">
-                    <div>Thank you! Your submission has been received!</div>
                 </div>
-                <div class="w-form-fail">
-                    <div>Oops! Something went wrong while submitting the form.</div>
-                </div>
-            </div>
+            </form>
+            
+
+            
 
             <div class="c-extrainfo">
                 <a href="#" class="c-extrainfo__text w-inline-block">
@@ -463,18 +463,23 @@
     }); // End ready function
 </script>
 <script>
-    const sizeRadios = document.querySelectorAll('input[name="size"]');
+    const sizeRadios = document.querySelectorAll('input[name="product_size"]');
     console.log(sizeRadios);
     const priceEl = document.querySelector('#product-price');
+    const priceE2 = document.querySelector('#p');
+
 
     sizeRadios.forEach(radio => {
         radio.addEventListener('click', () => {
             priceEl.textContent = radio.value;
+            priceE2.value=radio.value;
         });
     });
 
 
 </script>
+
+
 
 
 

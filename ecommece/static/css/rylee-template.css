@@ -5496,7 +5496,7 @@ figcaption {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: url('https://via.placeholder.com/1000x600.png?text=IMAGE');
+  background-image: url("/static/banners/bnrbig.jpg");
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;

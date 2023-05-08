@@ -7,10 +7,14 @@ from .models import ProductCategory,Product
 class IndexView(View):
     def get(self,request,*args, **kwargs):
         cats=ProductCategory.objects.all()
+        prd_obj=Product.objects.filter(is_trending=True)
+      
+        if len(prd_obj)>5:
+            prd_obj=sample(list(prd_obj),5)
         if len(cats)>3:
             cats= sample(list(cats),3)
 
-        context={"category":cats}
+        context={"category":cats,"tending":prd_obj}
         return render(request,"home.html",context)
     
 class CategoryView(ListView):
@@ -25,7 +29,15 @@ class ProductListView(View):
         cat=ProductCategory.objects.get(id=cat_id)
         product=Product.objects.filter(category=cat)
         cat=ProductCategory.objects.all()
-        return render(request,'products.html',{"product":product,"ct":cat})     
+        return render(request,'products.html',{"product":product,"ct":cat})  
+    
+    def post(self,request,*args, **kwargs):
+            qs=request.POST.get('Search_prodect')
+            if qs != None:
+                product=Product.objects.filter(product=qs)
+            return render(request,'products.html',{"product":product})    
+
+
     
 class ProductDetailView(View):
     def get(self,request,*args, **kwargs):
